@@ -67,7 +67,7 @@ function MenuModal({ isOpen, onClose }: MenuModalProps) {
           </div>
 
           <div className="flex flex-col items-center max-w-[50%] mx-auto">
-            <img src="/Totoro.png" className="max-h-[75%]" />
+            <img src={`${import.meta.env.BASE_URL}Totoro.png`} className="max-h-[75%]" />
           </div>
 
           <div className="h-full flex flex-col gap-20">
