@@ -19,7 +19,7 @@ export function Header() {
         <div className="flex justify-between px-2 py-3">
           <Link to="/">
             <img
-              src="/GhibliLogo.webp"
+              src={`${import.meta.env.BASE_URL}GhibliLogo.webp`}
               className=" w-64 md:w-72 lg:w-80 hover:translate-y-[-0.2rem]		"
             />
           </Link>

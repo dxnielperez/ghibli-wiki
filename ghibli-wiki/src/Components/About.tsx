@@ -6,7 +6,7 @@ export function About() {
       </h3>
       <div className="border border-white bg-white rounded-2xl p-5 ">
         <div className="lg:flex lg:justify-center">
-          <img src="/About.png" className="lg:max-w-[50%] rounded-lg pb-4" />
+          <img src={`${import.meta.env.BASE_URL}About.png`} className="lg:max-w-[50%] rounded-lg pb-4" />
         </div>
 
         <p className=" lg:text-xl">
