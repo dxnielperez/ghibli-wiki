@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename='https://daniel-perezf.github.io/ghibli-wiki/'>
+    <BrowserRouter basename='/ghibli-wiki/'>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
