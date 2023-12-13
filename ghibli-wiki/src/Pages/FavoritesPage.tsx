@@ -3,9 +3,9 @@ import { Header } from '../Components/Header';
 
 export function FavoritesPage() {
   return (
-    <div>
+    <section>
       <Header />
       <Favorites />
-    </div>
+    </section>
   );
 }

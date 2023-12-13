@@ -3,9 +3,9 @@ import { Header } from '../Components/Header';
 
 export function AboutPage() {
   return (
-    <div>
+    <section>
       <Header />
       <About />
-    </div>
+    </section>
   );
 }
