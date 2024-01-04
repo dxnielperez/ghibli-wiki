@@ -16,7 +16,6 @@ This repository contains the source code for Studio Ghibli Wiki, a web applicati
 
 - **Movie List:** Explore a curated list of Studio Ghibli movies.
 - **Movie Details:** Click on a movie to discover more information, including the director, release date, and description.
-- **Search Functionality:** Utilize the search bar to quickly find specific movies.
 - **Customizable Lists:** Easily manage your favorites and watchlist with the ability to add, edit, and remove items.
 
 ## Usage
