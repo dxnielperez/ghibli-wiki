@@ -1,4 +1,4 @@
-# [Studio Ghibli Wiki](daniel-perezf.github.io/ghibli-wiki/)
+# [Studio Ghibli Wiki](https://daniel-perezf.github.io/ghibli-wiki/)
 
 Welcome to the Studio Ghibli Wiki, a web application dedicated to providing information about Studio Ghibli movies. This project is built using React, Tailwind and TypeScript.
 
