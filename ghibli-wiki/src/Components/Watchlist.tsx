@@ -175,7 +175,11 @@ function FilmModal({
           </div>
 
           <p>Original Title: {film.original_title}</p>
-          <img src={film.image} className="max-w-[8rem] lg:max-w-[15rem]" />
+          <img
+            src={film.image}
+            className="max-w-[8rem] lg:max-w-[15rem]"
+            alt="film img"
+          />
 
           <div className="flex justify-between">
             <p>Director: {film.director}</p>
