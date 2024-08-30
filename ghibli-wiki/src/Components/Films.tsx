@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
-import { FilmsProps } from '../Types/types';
-import { Outlet } from 'react-router-dom';
-import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
-import { RiBookmarkFill, RiBookmarkLine } from 'react-icons/ri';
+import { useEffect, useState } from "react";
+import { FilmsProps } from "../Types/types";
+import { Outlet } from "react-router-dom";
+import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
+import { RiBookmarkFill, RiBookmarkLine } from "react-icons/ri";
 
 export function Films() {
   const [films, setFilms] = useState<FilmsProps[]>([]);
   const [selectedFilm, setSelectedFilm] = useState<FilmsProps | null>(null);
   const [selectedFilmIndex, setSelectedFilmIndex] = useState<number | null>(
-    null,
+    null
   );
   console.log(films);
   useEffect(() => {
     async function getFilms() {
       try {
-        const res = await fetch('https://ghibliapi.vercel.app/films');
+        const res = await fetch("https://ghibliapi.vercel.app/films");
         if (!res.ok) throw new Error(`Error: ${res.status}`);
         const result = await res.json();
         setFilms(result);
@@ -45,14 +45,19 @@ export function Films() {
         {films.map((film, index) => (
           <div
             className={`flex md:justify-center cursor-pointer  ${
-              index === selectedFilmIndex ? 'ring-4 rounded-lg' : ''
+              index === selectedFilmIndex ? "ring-4 rounded-lg" : ""
             }`}
             key={film.id}
-            onClick={() => handleFilmClick(film, index)}>
-            <div className="flex justify-between items-center px-4 rounded-md border border-black bg-white md:w-2/3 w-full lg:w-[28rem] hover:outline hover:outline-[#4A94FC] hover:translate-y-[0.1rem]">
+            onClick={() => handleFilmClick(film, index)}
+          >
+            <div className="flex justify-between items-center px-4 rounded-md border border-black bg-white md:w-2/3 w-full lg:w-[28rem] hover:outline hover:outline-[#4A94FC] hover:translate-y-[0.1rem] transition-all ease-in-out duration-200">
               <div className="flex flex-col mr-4">
                 <div className="max-w-[9rem] lg:max-w-[11rem] my-2">
-                  <img src={film.image} className="rounded-md " />
+                  <img
+                    src={film.image}
+                    className="rounded-md "
+                    alt="film img"
+                  />
                 </div>
               </div>
               <div className="flex flex-col">
@@ -60,7 +65,7 @@ export function Films() {
                 <p>{film.title}</p>
                 <p>{film.release_date}</p>
                 <div className="flex max-w-[12rem]">
-                  <p>{film.description.slice(0, 98) + '...'}</p>
+                  <p>{film.description.slice(0, 98) + "..."}</p>
                 </div>
               </div>
             </div>
@@ -92,62 +97,62 @@ function FilmModal({
   }
 
   useEffect(() => {
-    // Check if the film is already in favorites or watchlist when the modal opens
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
 
     setIsFavorite(
-      favorites.some((favFilm: FilmsProps) => favFilm.id === film.id),
+      favorites.some((favFilm: FilmsProps) => favFilm.id === film.id)
     );
 
     setIsWatchlist(
-      watchlist.some((watchFilm: FilmsProps) => watchFilm.id === film.id),
+      watchlist.some((watchFilm: FilmsProps) => watchFilm.id === film.id)
     );
   }, [film.id]);
 
   function handleFavorite() {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
     const isFilmInFavorites = favorites.some(
-      (favFilm: FilmsProps) => favFilm.id === film.id,
+      (favFilm: FilmsProps) => favFilm.id === film.id
     );
 
     if (isFilmInFavorites) {
       // Remove the film from favorites
       const updatedFavorites = favorites.filter(
-        (favFilm: FilmsProps) => favFilm.id !== film.id,
+        (favFilm: FilmsProps) => favFilm.id !== film.id
       );
-      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     } else {
       // Add the film to favorites
       const updatedFavorites = [...favorites, film];
-      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     }
     setIsFavorite(!isFilmInFavorites);
   }
 
   function handleBookmark() {
-    const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+    const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
     const isFilmInWatchlist = watchlist.some(
-      (watchlistFilm: FilmsProps) => watchlistFilm.id === film.id,
+      (watchlistFilm: FilmsProps) => watchlistFilm.id === film.id
     );
 
     if (isFilmInWatchlist) {
       // Remove the film from favorites
       const updatedWatchlist = watchlist.filter(
-        (watchlistFilm: FilmsProps) => watchlistFilm.id !== film.id,
+        (watchlistFilm: FilmsProps) => watchlistFilm.id !== film.id
       );
-      localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
+      localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
     } else {
       // Add the film to favorites
       const updatedWatchlist = [...watchlist, film];
-      localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
+      localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
     }
     setIsWatchlist(!isFilmInWatchlist);
   }
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      onClick={handleOverlayClick}>
+      onClick={handleOverlayClick}
+    >
       <div className="bg-white p-6 max-w-[600px] rounded-md">
         <div className="text-sm">
           <div className="flex justify-between">
@@ -179,7 +184,11 @@ function FilmModal({
           </div>
 
           <p>Original Title: {film.original_title}</p>
-          <img src={film.image} className="max-w-[8rem] lg:max-w-[15rem]" />
+          <img
+            src={film.image}
+            className="max-w-[8rem] lg:max-w-[15rem]"
+            alt="film img"
+          />
 
           <div className="flex justify-between">
             <p>Director: {film.director}</p>
@@ -195,7 +204,8 @@ function FilmModal({
 
           <button
             className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ease-in-out delay-75"
-            onClick={onClose}>
+            onClick={onClose}
+          >
             Close
           </button>
         </div>
