@@ -41,7 +41,7 @@ export function Films() {
         Films
       </h3>
 
-      <div className="flex flex-col gap-4 justify-center px-[1rem] md:flex-col lg:flex-row lg:flex-wrap">
+      <div className="flex flex-col gap-4 justify-center px-[1rem] md:flex-col lg:flex-row lg:flex-wrap pb-10">
         {films.map((film, index) => (
           <div
             className={`flex md:justify-center cursor-pointer  ${
