@@ -21,7 +21,7 @@ export function Header() {
             <img
               alt="ghibli logo"
               src={`${import.meta.env.BASE_URL}GhibliLogo.webp`}
-              className=" w-64 md:w-72 lg:w-80 hover:translate-y-[-0.2rem]		"
+              className=" w-64 md:w-72 lg:w-80 hover:translate-y-[-0.2rem] transition-all ease-in-out"
             />
           </Link>
           <div className="flex items-end text-4xl">
