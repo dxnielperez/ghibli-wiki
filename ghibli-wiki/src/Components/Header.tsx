@@ -46,7 +46,7 @@ function MenuModal({ isOpen, onClose }: MenuModalProps) {
         onClick={onClose}
       ></div>
       <div
-        className={`bg-[white]/[0.95] px-8 py-1 w-full h-[13rem] lg:h-[13rem] fixed top-0 transform transition-transform ease-in-out duration-300 ${
+        className={`bg-[white]/[0.90] backdrop-blur-sm px-8 py-1 w-full h-[13rem] lg:h-[13rem] fixed top-0 transform transition-transform ease-in-out duration-300 ${
           isOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
