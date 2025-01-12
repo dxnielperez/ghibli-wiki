@@ -28,7 +28,7 @@ export function Watchlist() {
         </h3>
         {noFavs && (
           <p className="flex justify-center text-sm text-[red]">
-            No films in watchlist
+            No films in your watch list
           </p>
         )}
         <div className="flex flex-col gap-4 justify-center px-[1rem] md:flex-col lg:flex-row lg:flex-wrap">

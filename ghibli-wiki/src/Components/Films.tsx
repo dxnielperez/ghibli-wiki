@@ -6,18 +6,20 @@ import { RiBookmarkFill, RiBookmarkLine } from "react-icons/ri";
 
 export function Films() {
   const [films, setFilms] = useState<FilmsProps[]>([]);
+  const [loading, setLoading] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState<FilmsProps | null>(null);
   const [selectedFilmIndex, setSelectedFilmIndex] = useState<number | null>(
     null
   );
-  console.log(films);
   useEffect(() => {
     async function getFilms() {
+      setLoading(true);
       try {
         const res = await fetch("https://ghibliapi.vercel.app/films");
         if (!res.ok) throw new Error(`Error: ${res.status}`);
         const result = await res.json();
         setFilms(result);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -41,40 +43,46 @@ export function Films() {
         Films
       </h3>
 
-      <div className="flex flex-col gap-4 justify-center px-[1rem] md:flex-col lg:flex-row lg:flex-wrap pb-10">
-        {films.map((film, index) => (
-          <div
-            className={`flex md:justify-center cursor-pointer  ${
-              index === selectedFilmIndex ? "ring-4 rounded-lg" : ""
-            }`}
-            key={film.id}
-            onClick={() => handleFilmClick(film, index)}
-          >
-            <div className="flex justify-between items-center px-4 rounded-md border border-black bg-white md:w-2/3 w-full lg:w-[28rem] hover:outline hover:outline-[#4A94FC] hover:translate-y-[0.1rem] transition-all ease-in-out duration-200">
-              <div className="flex flex-col mr-4">
-                <div className="max-w-[9rem] lg:max-w-[11rem] my-2">
-                  <img
-                    src={film.image}
-                    className="rounded-md "
-                    alt="film img"
-                  />
+      {loading ? (
+        <p className="w-full flex justify-center text-lg text-red-600 animate-pulse">
+          loading...
+        </p>
+      ) : (
+        <div className="flex flex-col gap-4 justify-center px-[1rem] md:flex-col lg:flex-row lg:flex-wrap pb-10">
+          {films.map((film, index) => (
+            <div
+              className={`flex md:justify-center cursor-pointer  ${
+                index === selectedFilmIndex ? "ring-4 rounded-lg" : ""
+              }`}
+              key={film.id}
+              onClick={() => handleFilmClick(film, index)}
+            >
+              <div className="flex justify-between items-center px-4 rounded-md border border-black bg-white md:w-2/3 w-full lg:w-[28rem] hover:outline hover:outline-[#4A94FC] transition-all ease-in-out duration-200">
+                <div className="flex flex-col mr-4">
+                  <div className="max-w-[9rem] lg:max-w-[11rem] my-2">
+                    <img
+                      src={film.image}
+                      className="rounded-md "
+                      alt="film img"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col">
-                <p>{film.original_title}</p>
-                <p>{film.title}</p>
-                <p>{film.release_date}</p>
-                <div className="flex max-w-[12rem]">
-                  <p>{film.description.slice(0, 98) + "..."}</p>
+                <div className="flex flex-col">
+                  <p>{film.original_title}</p>
+                  <p>{film.title}</p>
+                  <p>{film.release_date}</p>
+                  <div className="flex max-w-[12rem]">
+                    <p>{film.description.slice(0, 98) + "..."}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-        {selectedFilm && (
-          <FilmModal film={selectedFilm} onClose={handleCloseModal} />
-        )}
-      </div>
+          ))}
+          {selectedFilm && (
+            <FilmModal film={selectedFilm} onClose={handleCloseModal} />
+          )}
+        </div>
+      )}
       <Outlet />
     </div>
   );

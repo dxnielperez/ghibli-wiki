@@ -27,7 +27,9 @@ export function Favorites() {
           Favorites
         </h3>
         {noFavs && (
-          <p className="flex justify-center text-sm text-[red]">No favorites</p>
+          <p className="flex justify-center text-sm text-[red]">
+            No films in your favorites
+          </p>
         )}
         <div className="flex flex-col gap-4 justify-center px-[1rem] md:flex-col lg:flex-row lg:flex-wrap">
           {favorites.map((film: FilmsProps, index: number) => (

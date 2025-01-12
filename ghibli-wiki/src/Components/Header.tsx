@@ -2,7 +2,6 @@ import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { MenuModalProps } from "../Types/types";
 import { Link } from "react-router-dom";
-import { IoClose } from "react-icons/io5";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,11 +20,51 @@ export function Header() {
             <img
               alt="ghibli logo"
               src={`${import.meta.env.BASE_URL}GhibliLogo.webp`}
-              className=" w-64 md:w-72 lg:w-80 hover:translate-y-[-0.2rem] transition-all ease-in-out"
+              className="w-56 md:w-60 lg:w-64 hover:scale-105 transition-all ease-in-out"
             />
           </Link>
           <div className="flex items-end text-4xl">
-            <IoMenu onClick={handleMenuClick} className="cursor-pointer" />
+            <div className="sm:hidden flex">
+              <IoMenu onClick={handleMenuClick} className="cursor-pointer" />
+            </div>
+            <div className="sm:flex hidden justify-end items-center w-full ">
+              <div className="flex space-x-6">
+                <Link
+                  to="/"
+                  className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/AboutPage"
+                  className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+                >
+                  About
+                </Link>
+
+                <Link
+                  to="/FavoritesPage"
+                  className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+                >
+                  Favorites
+                </Link>
+                <Link
+                  to="/WatchlistPage"
+                  className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+                >
+                  Watchlist
+                </Link>
+              </div>
+
+              {/* Optional Image Section */}
+              {/* <div className="flex flex-col items-center max-w-[50%] mx-auto">
+    <img
+      alt="totoro"
+      src={`${import.meta.env.BASE_URL}Totoro.png`}
+      className="max-h-[75%]"
+    />
+  </div> */}
+            </div>
           </div>
         </div>
         <MenuModal isOpen={isOpen} onClose={handleCloseMenu} />
@@ -37,63 +76,46 @@ export function Header() {
 function MenuModal({ isOpen, onClose }: MenuModalProps) {
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-start transition-opacity ${
+      className={`fixed inset-0 z-50 transition-opacity ${
         isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
+      onClick={onClose}
     >
       <div
-        className="absolute inset-0 bg-black opacity-50"
+        className="absolute inset-0 bg-black opacity-30"
         onClick={onClose}
       ></div>
       <div
-        className={`bg-[white]/[0.90] backdrop-blur-sm px-8 py-1 w-full h-[13rem] lg:h-[13rem] fixed top-0 transform transition-transform ease-in-out duration-300 ${
-          isOpen ? "translate-y-0" : "-translate-y-full"
+        className={`bg-white bg-opacity-75 backdrop-blur-md w-[40%] h-full fixed top-0 right-0 transform transition-transform ease-in-out duration-300 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex justify-end text-3xl cursor-pointer">
-          <IoClose
-            className="absolute right-1 top-0 cursor-pointer hover:text-[#899CA9] ease-in-out delay-75"
-            onClick={onClose}
-          />
-        </div>
-        <div className="flex justify-between h-full pt-[2rem]">
-          <div className="flex flex-col gap-20 max-w-[25%] ">
-            <Link
-              to="/AboutPage"
-              className="underline text-xl hover:text-[#899CA9] ease-in-out delay-75"
-            >
-              About
-            </Link>
-            <Link
-              to="/"
-              className="underline text-xl hover:text-[#899CA9] ease-in-out delay-75"
-            >
-              Home
-            </Link>
-          </div>
+        <div className="flex flex-col gap-10 h-full pt-[2rem] items-end pr-5">
+          <Link
+            to="/"
+            className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+          >
+            Home
+          </Link>
+          <Link
+            to="/AboutPage"
+            className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+          >
+            About
+          </Link>
 
-          <div className="flex flex-col items-center max-w-[50%] mx-auto">
-            <img
-              alt="totoro"
-              src={`${import.meta.env.BASE_URL}Totoro.png`}
-              className="max-h-[75%]"
-            />
-          </div>
-
-          <div className="h-full flex flex-col gap-20">
-            <Link
-              to="/FavoritesPage"
-              className="underline text-xl hover:text-[#899CA9] ease-in-out delay-75"
-            >
-              Favorites
-            </Link>
-            <Link
-              to="/WatchlistPage"
-              className="underline text-xl hover:text-[#899CA9] ease-in-out delay-75"
-            >
-              Watchlist
-            </Link>
-          </div>
+          <Link
+            to="/FavoritesPage"
+            className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+          >
+            Favorites
+          </Link>
+          <Link
+            to="/WatchlistPage"
+            className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+          >
+            Watchlist
+          </Link>
         </div>
       </div>
     </div>
