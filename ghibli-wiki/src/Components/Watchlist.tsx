@@ -40,7 +40,7 @@ export function Watchlist() {
               key={film.id}
               onClick={() => handleFilmClick(film, index)}
             >
-              <div className="flex justify-between items-center px-4 rounded-md border border-black bg-white md:w-2/3 w-full lg:w-[28rem] hover:outline hover:outline-[#4A94FC] hover:translate-y-[0.1rem]">
+              <div className="flex justify-between items-center px-4 rounded-md border border-black bg-[#F8ECDD] md:w-2/3 w-full lg:w-[28rem] hover:outline hover:outline-[#4A94FC] hover:translate-y-[0.1rem]">
                 <div className="flex flex-col mr-4">
                   <div className="max-w-[9rem] lg:max-w-[11rem] my-2">
                     <img
@@ -144,7 +144,7 @@ function FilmModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white p-6 max-w-[600px] rounded-md">
+      <div className="bg-[#F8ECDD] p-6 max-w-[600px] rounded-md">
         <div className="text-sm">
           <div className="flex justify-between">
             <h3 className="text-xl font-bold mb-2">{film.title}</h3>

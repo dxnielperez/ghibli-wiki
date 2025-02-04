@@ -1,10 +1,10 @@
 export function About() {
   return (
-    <div className="bg-[#3A3A3A] min-h-screen pt-4 lg:px-[8rem] ">
+    <div className="bg-[#3A3A3A] min-h-screen pt-4 lg:px-[8rem] pb-10  px-[1rem] ">
       <h3 className="flex justify-center text-2xl lg:text-4xl text-white py-4">
         About Studio Ghbili
       </h3>
-      <div className="border border-white bg-white rounded-2xl p-5 ">
+      <div className=" bg-[#F8ECDD] rounded-2xl max-w-4xl mx-auto p-10">
         <div className="lg:flex lg:justify-center">
           <img
             src={`${import.meta.env.BASE_URL}About.png`}

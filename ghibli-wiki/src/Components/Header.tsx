@@ -20,7 +20,7 @@ export function Header() {
             <img
               alt="ghibli logo"
               src={`${import.meta.env.BASE_URL}GhibliLogo.webp`}
-              className="w-56 md:w-60 lg:w-64 hover:scale-105 transition-all ease-in-out"
+              className="w-56 md:w-60 lg:w-64 hover:scale-105 transition-all ease-in-out duration-300"
             />
           </Link>
           <div className="flex items-end text-4xl">
@@ -31,39 +31,30 @@ export function Header() {
               <div className="flex space-x-6">
                 <Link
                   to="/"
-                  className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+                  className="hover:underline text-xl ease-in-out duration-300 transition-all"
                 >
                   Home
                 </Link>
                 <Link
                   to="/AboutPage"
-                  className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+                  className="hover:underline text-xl ease-in-out duration-300 transition-all"
                 >
                   About
                 </Link>
 
                 <Link
                   to="/FavoritesPage"
-                  className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+                  className="hover:underline text-xl ease-in-out duration-300 transition-all"
                 >
                   Favorites
                 </Link>
                 <Link
                   to="/WatchlistPage"
-                  className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+                  className="hover:underline text-xl ease-in-out duration-300 transition-all"
                 >
                   Watchlist
                 </Link>
               </div>
-
-              {/* Optional Image Section */}
-              {/* <div className="flex flex-col items-center max-w-[50%] mx-auto">
-    <img
-      alt="totoro"
-      src={`${import.meta.env.BASE_URL}Totoro.png`}
-      className="max-h-[75%]"
-    />
-  </div> */}
             </div>
           </div>
         </div>
@@ -93,26 +84,26 @@ function MenuModal({ isOpen, onClose }: MenuModalProps) {
         <div className="flex flex-col gap-10 h-full pt-[2rem] items-end pr-5">
           <Link
             to="/"
-            className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+            className="hover:underline text-xl ease-in-out duration-300 transition-all"
           >
             Home
           </Link>
           <Link
             to="/AboutPage"
-            className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+            className="hover:underline text-xl ease-in-out duration-300 transition-all"
           >
             About
           </Link>
 
           <Link
             to="/FavoritesPage"
-            className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+            className="hover:underline text-xl ease-in-out duration-300 transition-all"
           >
             Favorites
           </Link>
           <Link
             to="/WatchlistPage"
-            className="hover:underline text-xl font-semibold ease-in-out duration-150 transition-all"
+            className="hover:underline text-xl ease-in-out duration-300 transition-all"
           >
             Watchlist
           </Link>
