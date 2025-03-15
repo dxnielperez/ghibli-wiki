@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { Container } from "../components";
 
 export function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Container heading="About Studio Ghibli">
       <div className="max-w-4xl mx-auto p-8 bg-[#F8ECDD] rounded-xl mb-28">
@@ -13,7 +18,6 @@ export function About() {
             />
           </div>
 
-          {/* Introduction Section */}
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold text-skyblue">
               Introduction
@@ -33,7 +37,6 @@ export function About() {
             </p>
           </section>
 
-          {/* Timeline Section */}
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold text-skyblue">
               Timeline of Studio Ghibli & Hayao Miyazaki
@@ -79,7 +82,6 @@ export function About() {
             </ul>
           </section>
 
-          {/* Legacy Section */}
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold text-skyblue">Legacy</h2>
             <p className="text-lg text-gray-800 leading-loose">

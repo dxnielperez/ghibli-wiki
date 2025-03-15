@@ -1,5 +1,5 @@
 interface ContainerProps {
-  heading: string;
+  heading?: string;
   children: React.ReactNode;
 }
 

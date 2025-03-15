@@ -38,6 +38,10 @@ export function Favorites() {
     setExpandedFilmId(expandedFilmId === filmId ? null : filmId);
   }
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Container heading="Favorites">
       {favorites.length === 0 && (

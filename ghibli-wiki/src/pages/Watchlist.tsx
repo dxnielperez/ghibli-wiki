@@ -38,6 +38,10 @@ export function Watchlist() {
     setExpandedFilmId(expandedFilmId === filmId ? null : filmId);
   }
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Container heading="Watchlist">
       {watchlist.length === 0 && (

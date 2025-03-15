@@ -131,16 +131,18 @@ export function FilmDetails() {
     setExpandedSection(expandedSection === section ? null : section);
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
   if (loading)
     return (
-      <div className="w-full flex flex-col mt-20 items-center text-lg text-[#4682B4] animate-pulse min-h-screen font-montserrat">
-        <img
-          src="./calcifer.gif"
-          className="w-20 mb-4"
-          alt="Calcifer loading"
-        />
-        <span>Loading...</span>
-      </div>
+      <Container>
+        <div className="w-full flex flex-col justify-center items-center text-lg text-red-600 animate-pulse">
+          <img src="./calcifer.gif" className="w-20" alt="calcifer" />
+          <span>loading...</span>
+        </div>
+      </Container>
     );
   if (!film)
     return (
