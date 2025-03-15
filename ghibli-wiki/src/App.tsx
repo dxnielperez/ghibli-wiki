@@ -1,19 +1,20 @@
-import { Route, Routes } from 'react-router-dom';
-import { AboutPage } from './Pages/AboutPage';
-import { FilmsPage } from './Pages/FilmsPage';
-import { FavoritesPage } from './Pages/FavoritesPage';
-import { WatchlistPage } from './Pages/WatchlistPage';
+import { Route, Routes } from "react-router-dom";
+import { Nav, Footer } from "./components";
+import { About, Favorites, Films, Watchlist, FilmDetails } from "./pages";
 
 function App() {
   return (
-    <>
+    <div className="bg-darkgray min-w-[330px]">
+      <Nav />
       <Routes>
-        <Route path="/" element={<FilmsPage />} />
-        <Route path="AboutPage" element={<AboutPage />} />
-        <Route path="FavoritesPage" element={<FavoritesPage />} />
-        <Route path="WatchlistPage" element={<WatchlistPage />} />
+        <Route path="/" element={<Films />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/film/:id" element={<FilmDetails />} />
       </Routes>
-    </>
+      <Footer />
+    </div>
   );
 }
 
