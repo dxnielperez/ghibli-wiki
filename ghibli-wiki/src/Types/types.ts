@@ -11,8 +11,10 @@ export type FilmsProps = {
   locations?: LocationProps[];
   people?: PeopleProps[];
   vehicles?: VehicleProps[];
-  species?: SpeciesProps;
+  species?: SpeciesProps[];
   movie_banner?: string;
+  original_title_romanised?: string;
+  rt_score?: string;
 };
 
 export type MenuModalProps = {
@@ -59,6 +61,7 @@ export interface SpeciesProps {
   hair_colors: string;
   films: string[];
   people: string[];
+  url?: string;
 }
 
 export interface VehicleProps {

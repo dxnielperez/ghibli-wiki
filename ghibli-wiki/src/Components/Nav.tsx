@@ -15,24 +15,28 @@ export function Nav() {
   }
 
   return (
-    <nav className="bg-skyblue font-montserrat font-medium border-b-2 border-[#4682B4] sticky top-0 z-40">
+    <nav className="bg-skyblue font-montserrat font-medium border-b-2 border-[#4682B4] sticky top-0 z-40 ">
       <div className="mx-auto px-4">
-        <div className="flex justify-between items-end py-4">
-          <Link to="/">
+        <div className="flex justify-between items-end py-2">
+          <Link to="/" className="relative inline-block ">
             <img
               alt="ghibli logo"
               src={`${import.meta.env.BASE_URL}ghibli-logo.webp`}
-              className="w-56 md:w-60 lg:w-64"
+              className="w-52"
             />
+            <span className="absolute w-max h-6 bottom-[-18%] left-[64%] transform -translate-x-1/2 -translate-y-1/2 bg-skyblue font-mono text-lg tracking-tighter ">
+              Studio Ghibli Wiki
+            </span>
           </Link>
+
           <div className="flex items-center">
-            <div className="sm:hidden">
+            <div className="md:hidden">
               <IoMenu
                 onClick={handleMenuClick}
                 className="text-4xl cursor-pointer black hover:text-darkgray transition-colors duration-200"
               />
             </div>
-            <div className="hidden sm:flex items-end justify-end space-x-5">
+            <div className="hidden md:flex items-end justify-end space-x-5">
               <Link to="/" className="text-xl black relative group py-1">
                 Home
                 <span className="absolute bottom-0 left-0 w-0 h-1 bg-darkgray transition-all duration-300 group-hover:w-full"></span>

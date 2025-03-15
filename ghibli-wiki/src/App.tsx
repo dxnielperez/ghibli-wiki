@@ -4,7 +4,7 @@ import { About, Favorites, Films, Watchlist, FilmDetails } from "./pages";
 
 function App() {
   return (
-    <div className="bg-darkgray">
+    <div className="bg-darkgray min-w-[330px]">
       <Nav />
       <Routes>
         <Route path="/" element={<Films />} />

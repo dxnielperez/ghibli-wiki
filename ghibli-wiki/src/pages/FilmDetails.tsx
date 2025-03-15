@@ -10,6 +10,7 @@ import {
 import { Container } from "../components";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { RiBookmarkLine, RiBookmarkFill } from "react-icons/ri";
+import { additionalFilms } from "../data";
 
 export function FilmDetails() {
   const { id } = useParams();
@@ -17,15 +18,16 @@ export function FilmDetails() {
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isWatchlist, setIsWatchlist] = useState(false);
-  const [showAllLocations, setShowAllLocations] = useState(false);
-  const [showAllCharacters, setShowAllCharacters] = useState(false);
-  const [showAllVehicles, setShowAllVehicles] = useState(false);
-  const ITEMS_LIMIT = 4;
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchFilmDetails() {
       if (!id) return;
       try {
+        if (id === "1") {
+          setFilm(additionalFilms.find((film) => film.id === id) || null);
+          return;
+        }
         const filmRes = await fetch(`https://ghibliapi.vercel.app/films/${id}`);
         if (!filmRes.ok)
           throw new Error(`Error fetching film: ${filmRes.status}`);
@@ -63,7 +65,7 @@ export function FilmDetails() {
           });
 
         const filmSpecies = speciesData.filter((species: SpeciesProps) =>
-          species.films.some((url: string) => url.endsWith(id))
+          species.films.some((filmUrl: string) => filmUrl.includes(filmData.id))
         );
 
         const filmVehicles = vehiclesData.filter((vehicle: VehicleProps) =>
@@ -118,6 +120,17 @@ export function FilmDetails() {
     setIsWatchlist(!isWatchlist);
   }
 
+  const convertRunTime = (time: string | number) => {
+    const minutes = typeof time === "string" ? parseInt(time, 10) : time;
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h ${remainingMinutes}m`;
+  };
+
+  const toggleSection = (section: string) => {
+    setExpandedSection(expandedSection === section ? null : section);
+  };
+
   if (loading)
     return (
       <div className="w-full flex flex-col mt-20 items-center text-lg text-[#4682B4] animate-pulse min-h-screen font-montserrat">
@@ -131,41 +144,60 @@ export function FilmDetails() {
     );
   if (!film)
     return (
-      <p className="text-center text-[#4682B4] font-montserrat">
+      <p className="text-center text-[#4682B4] font-montserrat min-h-screen py-3 max-w-7xl mx-auto">
         Film not found.
       </p>
     );
-
-  const displayedLocations = showAllLocations
-    ? film.locations
-    : film.locations?.slice(0, ITEMS_LIMIT);
-  const displayedCharacters = showAllCharacters
-    ? film.people
-    : film.people?.slice(0, ITEMS_LIMIT);
-  const displayedVehicles = showAllVehicles
-    ? film.vehicles
-    : film.vehicles?.slice(0, ITEMS_LIMIT);
-
   return (
     <Container heading={film.title}>
-      <div className="mx-auto p-8 bg-[#F8ECDD] rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 mb-28">
-        <div className="flex flex-col md:flex-row gap-6 items-start">
-          <div className="relative overflow-hidden rounded-lg">
+      <div className="max-w-5xl mx-auto p-6 bg-[#F8ECDD] rounded-xl shadow-md transition-shadow duration-300 mb-28 font-montserrat text-gray-800">
+        {film.movie_banner && (
+          <section className="mb-6">
+            <div className="w-full max-h-[300px] aspect-[16/9] overflow-hidden">
+              <img
+                src={film.movie_banner}
+                alt={`${film.title} banner`}
+                className="w-full h-full object-cover object-top rounded-xl"
+              />
+            </div>
+          </section>
+        )}
+
+        <section className="flex flex-col md:flex-row gap-6 mb-8">
+          <div className="md:w-1/3">
             <img
               src={film.image}
               alt={`${film.title} poster`}
-              className="max-w-1/4 max-h-[600px] object-contain rounded-lg"
+              className="w-full max-h-[500px] object-contain rounded-lg"
             />
           </div>
-
-          <div className="w-3/4 space-y-5 text-gray-800 font-montserrat">
+          <div className="md:w-2/3 space-y-4">
             <div>
-              <h3 className="text-xl font-semibold text-[#4682B4] mb-2">
-                Description
-              </h3>
-              <p className="text-lg leading-loose">{film.description}</p>
+              <p className="text-lg">
+                <span className="font-semibold">Original Title:</span>{" "}
+                {film.original_title} ({film.original_title_romanised})
+              </p>
+              <p className="text-lg">
+                <span className="font-semibold">Director:</span> {film.director}
+              </p>
+              <p className="text-lg">
+                <span className="font-semibold">Producer:</span> {film.producer}
+              </p>
+              <p className="text-lg">
+                <span className="font-semibold">Release:</span>{" "}
+                {film.release_date} |{" "}
+                {film.running_time && convertRunTime(film.running_time)}
+              </p>
+              <p
+                className={`text-lg font-semibold ${
+                  Number(film.rt_score) >= 75
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
+              >
+                Rotten Tomatoes: {film.rt_score}%
+              </p>
             </div>
-
             <div className="flex gap-4">
               <button
                 onClick={handleFavorite}
@@ -176,7 +208,7 @@ export function FilmDetails() {
                 ) : (
                   <MdFavoriteBorder className="text-2xl" />
                 )}
-                {isFavorite ? "Remove Favorite" : "Add Favorite"}
+                {isFavorite ? "Remove" : "Add Favorite"}
               </button>
               <button
                 onClick={handleBookmark}
@@ -187,79 +219,100 @@ export function FilmDetails() {
                 ) : (
                   <RiBookmarkLine className="text-2xl" />
                 )}
-                {isWatchlist ? "Remove Watchlist" : "Add Watchlist"}
+                {isWatchlist ? "Remove" : "Add to Watchlist"}
               </button>
             </div>
+          </div>
+        </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {film.locations && film.locations.length > 0 && (
-                <div>
-                  <h3 className="text-xl font-semibold text-[#4682B4] mb-2">
-                    Locations
-                  </h3>
-                  <ul className="list-disc pl-5 text-lg leading-loose">
-                    {displayedLocations?.map((location: LocationProps) => (
-                      <li key={location.id}>{location.name}</li>
-                    ))}
-                  </ul>
-                  {film.locations.length > ITEMS_LIMIT && (
-                    <button
-                      onClick={() => setShowAllLocations(!showAllLocations)}
-                      className="mt-2 text-[#4682B4] hover:underline focus:outline-none"
-                    >
-                      {showAllLocations ? "View Less" : "View All"}
-                    </button>
-                  )}
-                </div>
-              )}
+        <section className="mb-8">
+          <h3 className="text-xl font-semibold text-[#4682B4] mb-2">
+            Synopsis
+          </h3>
+          <p className="text-lg leading-loose  p-4 rounded-md shadow-sm">
+            {film.description}
+          </p>
+        </section>
 
-              {film.people && film.people.length > 0 && (
-                <div>
-                  <h3 className="text-xl font-semibold text-[#4682B4] mb-2">
-                    Characters
-                  </h3>
-                  <ul className="list-disc pl-5 text-lg leading-loose">
-                    {displayedCharacters?.map((person: PeopleProps) => (
-                      <li key={person.id}>
-                        {person.name} (
-                        {person.speciesDetails?.name || "Unknown Species"})
-                      </li>
-                    ))}
-                  </ul>
-                  {film.people.length > ITEMS_LIMIT && (
-                    <button
-                      onClick={() => setShowAllCharacters(!showAllCharacters)}
-                      className="mt-2 text-[#4682B4] hover:underline focus:outline-none"
-                    >
-                      {showAllCharacters ? "View Less" : "View All"}
-                    </button>
-                  )}
-                </div>
-              )}
-
-              {film.vehicles && film.vehicles.length > 0 && (
-                <div>
-                  <h3 className="text-xl font-semibold text-[#4682B4] mb-2">
-                    Vehicles
-                  </h3>
-                  <ul className="list-disc pl-5 text-lg leading-loose">
-                    {displayedVehicles?.map((vehicle: VehicleProps) => (
-                      <li key={vehicle.id}>{vehicle.name}</li>
-                    ))}
-                  </ul>
-                  {film.vehicles.length > ITEMS_LIMIT && (
-                    <button
-                      onClick={() => setShowAllVehicles(!showAllVehicles)}
-                      className="mt-2 text-[#4682B4] hover:underline focus:outline-none"
-                    >
-                      {showAllVehicles ? "View Less" : "View All"}
-                    </button>
-                  )}
-                </div>
+        <section className="space-y-4">
+          {film.locations && film.locations.length > 0 && (
+            <div className=" p-4 rounded-md shadow-sm">
+              <button
+                onClick={() => toggleSection("locations")}
+                className="w-full text-left text-xl font-semibold text-[#4682B4] flex justify-between items-center focus:outline-none"
+              >
+                Locations
+                <span>{expandedSection === "locations" ? "−" : "+"}</span>
+              </button>
+              {expandedSection === "locations" && (
+                <ul className="list-disc pl-5 text-lg mt-2">
+                  {film.locations.map((location: LocationProps) => (
+                    <li key={location.id}>{location.name}</li>
+                  ))}
+                </ul>
               )}
             </div>
-          </div>
-        </div>
+          )}
+
+          {film.people && film.people.length > 0 && (
+            <div className=" p-4 rounded-md shadow-sm">
+              <button
+                onClick={() => toggleSection("characters")}
+                className="w-full text-left text-xl font-semibold text-[#4682B4] flex justify-between items-center focus:outline-none"
+              >
+                Characters
+                <span>{expandedSection === "characters" ? "−" : "+"}</span>
+              </button>
+              {expandedSection === "characters" && (
+                <ul className="list-disc pl-5 text-lg mt-2">
+                  {film.people.map((person: PeopleProps) => (
+                    <li key={person.id}>
+                      {person.name} ({person.speciesDetails?.name || "Unknown"})
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+
+          {film.species && film.species.length > 0 && (
+            <div className=" p-4 rounded-md shadow-sm">
+              <button
+                onClick={() => toggleSection("species")}
+                className="w-full text-left text-xl font-semibold text-[#4682B4] flex justify-between items-center focus:outline-none"
+              >
+                Species
+                <span>{expandedSection === "species" ? "−" : "+"}</span>
+              </button>
+              {expandedSection === "species" && (
+                <ul className="list-disc pl-5 text-lg mt-2">
+                  {film.species.map((species: SpeciesProps) => (
+                    <li key={species.id}>{species.name}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+
+          {film.vehicles && film.vehicles.length > 0 && (
+            <div className=" p-4 rounded-md shadow-sm">
+              <button
+                onClick={() => toggleSection("vehicles")}
+                className="w-full text-left text-xl font-semibold text-[#4682B4] flex justify-between items-center focus:outline-none"
+              >
+                Vehicles
+                <span>{expandedSection === "vehicles" ? "−" : "+"}</span>
+              </button>
+              {expandedSection === "vehicles" && (
+                <ul className="list-disc pl-5 text-lg mt-2">
+                  {film.vehicles.map((vehicle: VehicleProps) => (
+                    <li key={vehicle.id}>{vehicle.name}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+        </section>
       </div>
     </Container>
   );
