@@ -92,10 +92,10 @@ export function Favorites() {
                 {film.original_title} - {film.release_date}
               </p>
               {isExpanded && (
-                <div className="mt-2">
+                <div className="mt-2 flex flex-col md:flex-row gap-4">
                   <img
                     src={film.image}
-                    className="w-full max-w-[15rem] rounded-md"
+                    className="w-full max-w-[10rem] rounded-md mx-auto"
                     alt="film img"
                   />
                   <p className="mt-2">{film.description}</p>

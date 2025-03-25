@@ -55,11 +55,11 @@ export function Films() {
             })}
           </div>
         )}
-      </Container>{" "}
+      </Container>
       <img
         src="https://media0.giphy.com/media/Mme4s8S3cm7fi/200w.gif"
         alt="spoot walking"
-        className="relative bottom-1 h-12 animate-walk-fast sm:animate-walk-slow"
+        className="relative bottom-1 h-12 animate-walk-fast sm:animate-walk-slow hover:animation-paused cursor-grabbing"
       />
     </>
   );

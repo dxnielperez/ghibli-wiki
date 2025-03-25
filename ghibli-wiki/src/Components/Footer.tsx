@@ -13,14 +13,13 @@ export function Footer() {
         <div className="mb-4 md:mb-0 text-center md:text-left">
           <p className="text-lg font-semibold font-montserrat">Ghibli Wiki</p>
           <p className="text-sm">
-            © {currentYear} | Built by
+            © {currentYear} | Built by {""}
             <a
               href="https://www.dxniel.dev/"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-[#F8ECDD] transition-colors duration-200"
+              className="underline w-min hover:text-[#F8ECDD] transition-colors duration-200"
             >
-              {" "}
               Daniel Perez
             </a>
           </p>
